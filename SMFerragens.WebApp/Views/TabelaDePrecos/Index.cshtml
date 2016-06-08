@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SMFerragens.WebApp.Models.GrupoComProdutosVm>
+@{
+    ViewBag.Title = "Produtos";
+}
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+
+<div class="container">
+    @foreach (var grupoComProdutos in Model)
+    {
+        <h3>@grupoComProdutos.Grupo.Descricao</h3>
+
+        <div class="row">
+            <div class="col-md-6">Produto</div>
+            <div class="col-md-3">Preço 1</div>
+            <div class="col-md-3">Preço 1</div>
+        </div>
+
+        foreach (var produto in grupoComProdutos.Produtos)
+        {
+            <div class="row">
+                <div class="col-md-6">@produto.Nome</div>
+                <div class="col-md-3">R$ 0,00</div>
+                <div class="col-md-3">R$ 0,00</div>
+            </div>
+        }
+    }
+</div>
