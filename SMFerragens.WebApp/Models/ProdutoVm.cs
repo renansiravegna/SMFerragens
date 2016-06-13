@@ -88,5 +88,9 @@ namespace SMFerragens.WebApp.Models
         {
             return Precos.Where(p => formasDeVenda.Contains(p.FormaDeVenda)).OrderBy(p => p.FormaDeVenda).ToList();
         }
+
+        public void AlterarPreco(FormaDeVenda formaDeVenda, decimal novoValor)
+        {
+        }
     }
 }

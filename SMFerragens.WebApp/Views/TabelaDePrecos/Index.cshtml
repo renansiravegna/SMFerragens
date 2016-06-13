@@ -11,43 +11,41 @@
 
         <table class="tabela-de-precos">
             <thead>
-            <tr>
-                <td>Produto</td>
+                <tr>
+                    <td>Produto</td>
 
-                @foreach (var formaDeVenda in grupoComProdutos.FormasDeVenda)
+                    @foreach (var formaDeVenda in grupoComProdutos.FormasDeVenda)
                 {
-                    <td class="forma-de-venda">@formaDeVenda.ToDescription()</td>
-                }
-            </tr>
+                        <td class="forma-de-venda">@formaDeVenda.ToDescription()</td>
+                    }
+                </tr>
             </thead>
 
             <tbody>
-            @foreach (var produto in grupoComProdutos.Produtos)
-            {
-                <tr>
-                    <td class="nome-do-produto">@produto.Nome</td>
+                @foreach (var produto in grupoComProdutos.Produtos)
+                {
+                    <tr>
+                        <td class="nome-do-produto">@produto.Nome</td>
 
-                    @foreach (var preco in produto.PrecosPara(grupoComProdutos.FormasDeVenda))
-                    {
-                        <td class="preco">
-                            @if (preco.Valor > 0)
-                            {
-                                <span data-js="preco">@preco.Valor.ToString().Replace(".", ",")</span>
-                            }
-                            else
-                            {
-                                <span data-js="preco">---</span>
-                            }
-                        </td>
-                    }
-                </tr>
-            }
+                        @foreach (var preco in produto.PrecosPara(grupoComProdutos.FormasDeVenda))
+                        {
+                            var valor = preco.Valor > 0 ? preco.Valor.ToString().Replace(".", ",") : "---";
+                            <td class="preco">
+                                <span data-js="preco">@valor</span>
+                                <input class="escondido troca-de-valor" type="text" data-js="novo-valor" data-codpro="@produto.CodPro" data-formadevenda="@preco.FormaDeVenda" value="@valor" />
+                            </td>
+                        }
+                    </tr>
+                }
             </tbody>
         </table>
     }
 </div>
 
-<script src="~/App/trocaDePrecos.js"></script>
-<script>
-    //window.trocaDePrecos.iniciar();
-</script>
+@section scripts {
+    <script src="~/App/trocaDePrecos.js"></script>
+
+    <script>
+        window.trocaDePrecos.iniciar();
+    </script>
+}

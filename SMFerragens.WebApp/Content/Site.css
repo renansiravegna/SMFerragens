@@ -1,4 +1,12 @@
-﻿.tabela-de-precos {
+﻿.escondido {
+    display: none;
+}
+
+.troca-de-valor {
+    max-width: 90px;
+}
+
+.tabela-de-precos {
     width: 100%;
 }
 

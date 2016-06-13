@@ -16,5 +16,15 @@ namespace SMFerragens.WebApp.Infra
         {
             return _bancoDeDados.Produto.FindAllByCodGrupo(grupoDeProduto.CodGrupo);
         }
+
+        public ProdutoVm ObterPorCodPro(int codPro)
+        {
+            return _bancoDeDados.Produto.Get(codPro);
+        }
+
+        public void AtualizarPrecos(ProdutoVm produto)
+        {
+            _bancoDeDados.Produto.Update(produto);
+        }
     }
 }
