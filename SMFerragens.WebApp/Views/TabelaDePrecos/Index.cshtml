@@ -1,28 +1,53 @@
-﻿@model IEnumerable<SMFerragens.WebApp.Models.GrupoComProdutosVm>
+﻿@using SMFerragens.WebApp.Helpers
+@model IEnumerable<SMFerragens.WebApp.Models.GrupoComProdutosVm>
 @{
     ViewBag.Title = "Produtos";
 }
-<h2>@ViewBag.Title</h2>
-<h3>@ViewBag.Message</h3>
 
 <div class="container">
     @foreach (var grupoComProdutos in Model)
     {
-        <h3>@grupoComProdutos.Grupo.Descricao</h3>
+        <h3 class="nome-do-grupo">@grupoComProdutos.Grupo.Descricao</h3>
 
-        <div class="row">
-            <div class="col-md-6">Produto</div>
-            <div class="col-md-3">Preço 1</div>
-            <div class="col-md-3">Preço 1</div>
-        </div>
+        <table class="tabela-de-precos">
+            <thead>
+            <tr>
+                <td>Produto</td>
 
-        foreach (var produto in grupoComProdutos.Produtos)
-        {
-            <div class="row">
-                <div class="col-md-6">@produto.Nome</div>
-                <div class="col-md-3">R$ 0,00</div>
-                <div class="col-md-3">R$ 0,00</div>
-            </div>
-        }
+                @foreach (var formaDeVenda in grupoComProdutos.FormasDeVenda)
+                {
+                    <td class="forma-de-venda">@formaDeVenda.ToDescription()</td>
+                }
+            </tr>
+            </thead>
+
+            <tbody>
+            @foreach (var produto in grupoComProdutos.Produtos)
+            {
+                <tr>
+                    <td class="nome-do-produto">@produto.Nome</td>
+
+                    @foreach (var preco in produto.PrecosPara(grupoComProdutos.FormasDeVenda))
+                    {
+                        <td class="preco">
+                            @if (preco.Valor > 0)
+                            {
+                                <span data-js="preco">@preco.Valor.ToString().Replace(".", ",")</span>
+                            }
+                            else
+                            {
+                                <span data-js="preco">---</span>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+            </tbody>
+        </table>
     }
 </div>
+
+<script src="~/App/trocaDePrecos.js"></script>
+<script>
+    //window.trocaDePrecos.iniciar();
+</script>

@@ -1,24 +1,30 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿.tabela-de-precos {
+    width: 100%;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    .tabela-de-precos thead {
+        font-weight: bold;
+    }
+
+    .tabela-de-precos tbody tr:nth-child(odd) {
+        background-color: #faf3f3;
+    }
+
+.nome-do-grupo {
+    font-weight: bold;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+.nome-do-produto {
+    min-width: 500px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.forma-de-venda, .preco {
+    min-width: 100px;
+    text-align: center;
+}
+
+@media print {
+    .tabela-de-precos tbody tr:nth-child(odd) {
+        background-color: #faf3f3 !important;
+    }
 }
