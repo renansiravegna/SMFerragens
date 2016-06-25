@@ -24,6 +24,8 @@
     function retornarParaExibicoesEmTexto() {
         $('input[data-js="novo-valor"]:visible').each(function() {
             var campo = $(this);
+
+            campo.autoNumeric('set', campo.val());
             campo.hide().autoNumeric('destroy');
             campo.prev().show().text(campo.val());
         });
