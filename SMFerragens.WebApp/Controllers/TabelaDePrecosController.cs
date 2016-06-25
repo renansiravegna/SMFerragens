@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using Simple.Data;
 using SMFerragens.WebApp.Infra;
 using SMFerragens.WebApp.Services;
@@ -11,7 +12,7 @@ namespace SMFerragens.WebApp.Controllers
     {
         public ActionResult Index()
         {
-            var bancoDeDados = Database.Open();
+            var bancoDeDados = Database.OpenNamedConnection("SMFerragens");
             var grupoDeProdutoDao = new GrupoDeProdutoDao(bancoDeDados);
             var produtoDao = new ProdutoDao(bancoDeDados);
             var consultaDeProdutosPorGrupo = new ConsultaDeProdutosPorGrupo(grupoDeProdutoDao, produtoDao);
@@ -22,7 +23,7 @@ namespace SMFerragens.WebApp.Controllers
         [HttpPost]
         public void Atualizar(int codPro, FormaDeVenda formaDeVenda, decimal novoValor)
         {
-            var bancoDeDados = Database.Open();
+            var bancoDeDados = Database.OpenNamedConnection("SMFerragens");
             var produtoDao = new ProdutoDao(bancoDeDados);
             var produto = produtoDao.ObterPorCodPro(codPro);
 
