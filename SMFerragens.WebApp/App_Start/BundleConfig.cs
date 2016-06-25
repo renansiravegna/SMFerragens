@@ -13,6 +13,7 @@ namespace SMFerragens.WebApp
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js",
                 "~/Scripts/autoNumeric/autoNumeric-1.9.25.js",
+                "~/App/editorDePrecos.js",
                 "~/App/trocaDePrecos.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

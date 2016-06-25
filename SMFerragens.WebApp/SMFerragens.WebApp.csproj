@@ -188,6 +188,7 @@
     <Compile Include="_Tests\ProdutoVmTeste.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\editorDePrecos.js" />
     <Content Include="App\trocaDePrecos.js" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\bootstrap-theme.css" />
