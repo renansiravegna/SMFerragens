@@ -1,87 +1,44 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SMFerragens.WebApp.Models
 {
     public class ProdutoVm
     {
-        private decimal? _precoTresMetros;
-        private decimal? _precoUnidade;
-        private decimal? _precoQuilo;
-        private decimal? _precoCento;
-        private decimal? _precoCinquenta;
-        private decimal? _precoMetro;
-
         public int CodPro { get; set; }
         public string Nome { get; set; }
+        public decimal? PrecoMetro { get; set; }
+        public decimal? PrecoTresMetros { get; set; }
+        public decimal? PrecoUnidade { get; set; }
+        public decimal? PrecoCinquenta { get; set; }
+        public decimal? PrecoCento { get; set; }
+        public decimal? PrecoQuilo { get; set; }
+
         public IEnumerable<FormaDeVenda> FormasDeVenda { get { return Precos.Where(p => p.Valor > 0).Select(p => p.FormaDeVenda).Distinct().ToList(); } }
 
-        private readonly IList<PrecoVm> _precos = new List<PrecoVm>();
-        public IEnumerable<PrecoVm> Precos => _precos;
-
-        public decimal? PrecoMetro
+        private readonly IList<PrecoVm> _precos = new List<PrecoVm>(); 
+        public IEnumerable<PrecoVm> Precos
         {
-            get { return _precoMetro; }
-            set
+            get
             {
-                AdicionarPreco(value, FormaDeVenda.Metro);
-                _precoMetro = value;
-            }
-        }
+                _precos.Clear();
 
-        public decimal? PrecoTresMetros
-        {
-            get { return _precoTresMetros; }
-            set
-            {
-                AdicionarPreco(value, FormaDeVenda.TresMetros);
-                _precoTresMetros = value;
-            }
-        }
+                AdicionarPreco(PrecoMetro, FormaDeVenda.Metro);
+                AdicionarPreco(PrecoTresMetros, FormaDeVenda.TresMetros);
+                AdicionarPreco(PrecoUnidade, FormaDeVenda.Unidade);
+                AdicionarPreco(PrecoCinquenta, FormaDeVenda.Cinquenta);
+                AdicionarPreco(PrecoCento, FormaDeVenda.Cento);
+                AdicionarPreco(PrecoQuilo, FormaDeVenda.Quilo);
 
-        public decimal? PrecoUnidade
-        {
-            get { return _precoUnidade; }
-            set
-            {
-                AdicionarPreco(value, FormaDeVenda.Unidade);
-                _precoUnidade = value;
-            }
-        }
-
-        public decimal? PrecoCinquenta
-        {
-            get { return _precoCinquenta; }
-            set
-            {
-                AdicionarPreco(value, FormaDeVenda.Cinquenta);
-                _precoCinquenta = value;
-            }
-        }
-
-        public decimal? PrecoCento
-        {
-            get { return _precoCento; }
-            set
-            {
-                AdicionarPreco(value, FormaDeVenda.Cento);
-                _precoCento = value;
-            }
-        }
-
-        public decimal? PrecoQuilo
-        {
-            get { return _precoQuilo; }
-            set
-            {
-                AdicionarPreco(value, FormaDeVenda.Quilo);
-                _precoQuilo = value;
+                return _precos;
             }
         }
 
         private void AdicionarPreco(decimal? preco, FormaDeVenda formaDeVenda)
         {
-            _precos.Add(new PrecoVm { FormaDeVenda = formaDeVenda, Valor = preco ?? 0 });
+            if (preco.HasValue)
+                _precos.Add(new PrecoVm { FormaDeVenda = formaDeVenda, Valor = preco ?? 0 });
         }
 
         public IEnumerable<PrecoVm> PrecosPara(IEnumerable<FormaDeVenda> formasDeVenda)
@@ -91,6 +48,35 @@ namespace SMFerragens.WebApp.Models
 
         public void AlterarPreco(FormaDeVenda formaDeVenda, decimal novoValor)
         {
+            switch (formaDeVenda)
+            {
+                case FormaDeVenda.Metro:
+                    PrecoMetro = novoValor;
+                    break;
+
+                case FormaDeVenda.TresMetros:
+                    PrecoTresMetros = novoValor;
+                    break;
+
+                case FormaDeVenda.Unidade:
+                    PrecoUnidade = novoValor;
+                    break;
+
+                case FormaDeVenda.Cinquenta:
+                    PrecoCinquenta = novoValor;
+                    break;
+
+                case FormaDeVenda.Cento:
+                    PrecoCento = novoValor;
+                    break;
+
+                case FormaDeVenda.Quilo:
+                    PrecoQuilo = novoValor;
+                    break;
+
+                default:
+                    throw new Exception("Forma de venda não encontrada");
+            }
         }
     }
 }

@@ -41,7 +41,7 @@
         var parametros = {
             codPro: novoValor.data('codpro'),
             formaDeVenda: novoValor.data('formadevenda'),
-            novoValor: novoValor.val()
+            novoValor: novoValor.autoNumeric('get').replace(',', '.')
         };
 
         $.post('/TabelaDePrecos/Atualizar', parametros)
