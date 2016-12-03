@@ -22,7 +22,7 @@ namespace SMFerragens.WebApp.Infra
             return _bancoDeDados.Produto.Get(codPro);
         }
 
-        public void AtualizarPrecos(ProdutoVm produto)
+        public void Atualizar(ProdutoVm produto)
         {
             _bancoDeDados.Produto.Update(produto);
         }

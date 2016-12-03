@@ -28,7 +28,7 @@ namespace SMFerragens.WebApp.Controllers
             var produto = produtoDao.ObterPorCodPro(codPro);
 
             produto.AlterarPreco(formaDeVenda, novoValor);
-            produtoDao.AtualizarPrecos(produto);
+            produtoDao.Atualizar(produto);
         }
     }
 }

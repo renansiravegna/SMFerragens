@@ -1,4 +1,8 @@
-﻿.escondido {
+﻿body {
+    font-size: 30px;
+}
+
+.escondido {
     display: none;
 }
 
